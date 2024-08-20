@@ -67,7 +67,6 @@ namespace TaskSchedulerAPI.Business.Services
 
             if (!VerifyPassword(user.PasswordHash, user.PasswordSalt))
             {
-                // Şifre yanlışsa null döndür
                 return null;
             }
 
