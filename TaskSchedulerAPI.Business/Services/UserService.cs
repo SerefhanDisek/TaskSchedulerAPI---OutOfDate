@@ -80,7 +80,10 @@ namespace TaskSchedulerAPI.Business.Services
             return null;
         }
 
-    
+        public Task<object?> UpdateUserAsync(int id, UserUpdateDto userUpdateDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

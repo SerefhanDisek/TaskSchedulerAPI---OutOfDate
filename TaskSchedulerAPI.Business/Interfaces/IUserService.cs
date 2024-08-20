@@ -11,5 +11,6 @@ namespace TaskSchedulerAPI.Business.Interfaces
         Task<UserDto> LoginUserAsync(UserLoginDto userLoginDto);
         Task<string?> LoginUserAsync(string email);
         Task<object?> UpdateUserAsync(int id, UserUpdateDto userUpdateDto);
+        
     }
 }
