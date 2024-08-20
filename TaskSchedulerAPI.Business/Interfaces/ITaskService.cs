@@ -4,11 +4,11 @@ namespace TaskSchedulerAPI.Business.Interfaces
 {
     public interface ITaskService
     {
+        Task<OperationResult> CreateTaskAsync(TaskCreateDto taskCreateDto);
         Task<IEnumerable<TaskDto>> GetAllTasksAsync();
-        Task<bool> CreateTaskAsync(TaskCreateDto taskDto);
-        Task AssignTasksToUsersAsync();
-
-        
+        Task<TaskDto> GetTaskByIdAsync(int id);
+        Task<OperationResult> UpdateTaskAsync(int id, TaskUpdateDto taskUpdateDto);
+        Task<OperationResult> DeleteTaskAsync(int id);
     }
 }
 

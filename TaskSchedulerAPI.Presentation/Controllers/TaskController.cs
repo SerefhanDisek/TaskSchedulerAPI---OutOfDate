@@ -1,12 +1,98 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskSchedulerAPI.Business.Interfaces;
+using TaskSchedulerAPI.Core.DTOs;
 
 namespace TaskSchedulerAPI.Presentation.Controllers
 {
-    public class TaskController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class TaskController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly ITaskService _taskService;
+        private readonly ILogger<TaskController> _logger;
+
+        public TaskController(ITaskService taskService, ILogger<TaskController> logger)
         {
-            return View();
+            _taskService = taskService;
+            _logger = logger;
+        }
+
+        // POST: api/Task/CreateTask
+        [HttpPost("CreateTask")]
+        public async Task<IActionResult> CreateTask([FromBody] TaskCreateDto taskCreateDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _taskService.CreateTaskAsync(taskCreateDto);
+            if (result.IsSuccess)
+            {
+                _logger.LogInformation("Task created successfully.");
+                return Ok(result.Message);
+            }
+
+            _logger.LogError("Task creation failed.");
+            return BadRequest(result.Message);
+        }
+
+        // GET: api/Task/GetAllTasks
+        [HttpGet("GetAllTasks")]
+        public async Task<IActionResult> GetAllTasks()
+        {
+            var tasks = await _taskService.GetAllTasksAsync();
+            return Ok(tasks);
+        }
+
+        // GET: api/Task/GetTaskById/{id}
+        [HttpGet("GetTaskById/{id}")]
+        public async Task<IActionResult> GetTaskById(int id)
+        {
+            var task = await _taskService.GetTaskByIdAsync(id);
+            if (task == null)
+            {
+                _logger.LogWarning($"Task with ID {id} not found.");
+                return NotFound($"Task with ID {id} not found.");
+            }
+
+            return Ok(task);
+        }
+
+        // PUT: api/Task/UpdateTask/{id}
+        [HttpPut("UpdateTask/{id}")]
+        public async Task<IActionResult> UpdateTask(int id, [FromBody] TaskUpdateDto taskUpdateDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _taskService.UpdateTaskAsync(id, taskUpdateDto);
+            if (result.IsSuccess)
+            {
+                _logger.LogInformation($"Task with ID {id} updated successfully.");
+                return Ok(result.Message);
+            }
+
+            _logger.LogError($"Failed to update task with ID {id}.");
+            return BadRequest(result.Message);
+        }
+
+        // DELETE: api/Task/DeleteTask/{id}
+        [HttpDelete("DeleteTask/{id}")]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            var result = await _taskService.DeleteTaskAsync(id);
+            if (result.IsSuccess)
+            {
+                _logger.LogInformation($"Task with ID {id} deleted successfully.");
+                return Ok(result.Message);
+            }
+
+            _logger.LogError($"Failed to delete task with ID {id}.");
+            return BadRequest(result.Message);
         }
     }
 }
+

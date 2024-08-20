@@ -63,5 +63,32 @@ namespace TaskSchedulerAPI.Business.Services
                 await _taskRepository.SaveChangesAsync(); 
             }
         }
+
+        Task<OperationResult> ITaskService.CreateTaskAsync(TaskCreateDto taskCreateDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TaskDto> GetTaskByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<OperationResult> UpdateTaskAsync(int id, TaskUpdateDto taskUpdateDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<OperationResult> DeleteTaskAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
+
+
+/*       Task<OperationResult> CreateTaskAsync(TaskCreateDto taskCreateDto);
+        Task<IEnumerable<TaskDto>> GetAllTasksAsync();
+        Task<TaskDto> GetTaskByIdAsync(int id);
+        Task<OperationResult> UpdateTaskAsync(int id, TaskUpdateDto taskUpdateDto);
+        Task<OperationResult> DeleteTaskAsync(int id);*/
