@@ -9,6 +9,8 @@ namespace TaskSchedulerAPI.DataAccess.Interfaces
         Task<bool> AddAsync(User user);
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<bool> SaveChangesAsync();
+        Task<User> GetUserByEmailAsync(string email);
+        
     }
 }
 

@@ -16,9 +16,6 @@ public class UserController : ControllerBase
         _mapper = mapper;
     }
 
-    /*[HttpGet]
-    public async Task<IActionResult> GetAllUser*/
-
     [HttpPost("register")]
     public async Task<IActionResult> Register(UserCreateDto userDto)
     {
@@ -29,4 +26,49 @@ public class UserController : ControllerBase
         }
         return BadRequest();
     }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(UserLoginDto userDto)
+    {
+        var token = await _userService.LoginUserAsync(userDto.Email);
+        if (!string.IsNullOrEmpty(token))
+        {
+            return Ok(new { Token = token });
+        }
+        return Unauthorized();
+    }
+
+    /*[HttpGet("{id}")]
+    public async Task<IActionResult> GetUser(int id)
+    {
+        var user = await _userService.GetUserByIdAsync(id);
+        if (user != null)
+        {
+            return Ok(user);
+        }
+        return NotFound();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userDto)
+    {
+        var result = await _userService.UpdateUserAsync(id, userDto);
+        if (result)
+        {
+            return NoContent();
+        }
+        return BadRequest();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        var result = await _userService.DeleteUserAsync(id);
+        if (result)
+        {
+            return NoContent();
+        }
+        return NotFound();
+    }*/
+
 }

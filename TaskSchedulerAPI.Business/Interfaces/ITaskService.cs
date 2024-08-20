@@ -7,6 +7,7 @@ namespace TaskSchedulerAPI.Business.Interfaces
         Task<IEnumerable<TaskDto>> GetAllTasksAsync();
         Task<bool> CreateTaskAsync(TaskCreateDto taskDto);
         Task AssignTasksToUsersAsync();
+
         
     }
 }
