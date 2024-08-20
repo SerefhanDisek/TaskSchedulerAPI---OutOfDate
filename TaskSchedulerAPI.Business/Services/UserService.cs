@@ -84,6 +84,11 @@ namespace TaskSchedulerAPI.Business.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<OperationResult> ManageUserAsync(UserManagementDto userManagementDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

@@ -1,5 +1,4 @@
 ﻿using TaskSchedulerAPI.Core.DTOs;
-using TaskSchedulerAPI.Core.Entities;
 
 namespace TaskSchedulerAPI.Business.Interfaces
 {
@@ -11,6 +10,7 @@ namespace TaskSchedulerAPI.Business.Interfaces
         Task<UserDto> LoginUserAsync(UserLoginDto userLoginDto);
         Task<string?> LoginUserAsync(string email);
         Task<object?> UpdateUserAsync(int id, UserUpdateDto userUpdateDto);
-        
+        Task<OperationResult> ManageUserAsync(UserManagementDto userManagementDto);
+
     }
 }

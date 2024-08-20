@@ -9,6 +9,7 @@ namespace TaskSchedulerAPI.Business.Interfaces
         Task<TaskDto> GetTaskByIdAsync(int id);
         Task<OperationResult> UpdateTaskAsync(int id, TaskUpdateDto taskUpdateDto);
         Task<OperationResult> DeleteTaskAsync(int id);
+        Task<OperationResult> ManageTaskAsync(TaskManagementDto taskManagementDto);
     }
 }
 

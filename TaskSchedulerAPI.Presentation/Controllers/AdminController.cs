@@ -1,12 +1,80 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TaskSchedulerAPI.Business.Interfaces;
+using TaskSchedulerAPI.Core.DTOs;
 
 namespace TaskSchedulerAPI.Presentation.Controllers
 {
-    public class AdminController : Controller
+    [Authorize(Roles = "Admin")]
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AdminController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IUserService _userService;
+        private readonly ITaskService _taskService;
+        private readonly ILogService _logService;
+        private readonly ILogger<AdminController> _logger;
+
+        public AdminController(IUserService userService, ITaskService taskService, ILogService logService, ILogger<AdminController> logger)
         {
-            return View();
+            _userService = userService;
+            _taskService = taskService;
+            _logService = logService;
+            _logger = logger;
+        }
+
+        // GET: api/Admin/ManageUsers
+        [HttpGet("ManageUsers")]
+        public async Task<IActionResult> ManageUsers()
+        {
+            var users = await _userService.GetAllUsersAsync();
+            return Ok(users);
+        }
+
+        // POST: api/Admin/ManageUsers
+        [HttpPost("ManageUsers")]
+        public async Task<IActionResult> ManageUsers([FromBody] UserManagementDto userManagementDto)
+        {
+            var result = await _userService.ManageUserAsync(userManagementDto);
+            if (result.IsSuccess)
+            {
+                _logger.LogInformation($"User {userManagementDto.UserId} managed successfully.");
+                return Ok(result.Message);
+            }
+
+            _logger.LogError($"Failed to manage user {userManagementDto.UserId}.");
+            return BadRequest(result.Message);
+        }
+
+        // GET: api/Admin/ManageTasks
+        [HttpGet("ManageTasks")]
+        public async Task<IActionResult> ManageTasks()
+        {
+            var tasks = await _taskService.GetAllTasksAsync();
+            return Ok(tasks);
+        }
+
+        // POST: api/Admin/ManageTasks
+        [HttpPost("ManageTasks")]
+        public async Task<IActionResult> ManageTasks([FromBody] TaskManagementDto taskManagementDto)
+        {
+            var result = await _taskService.ManageTaskAsync(taskManagementDto);
+            if (result.IsSuccess)
+            {
+                _logger.LogInformation($"Task {taskManagementDto.TaskId} managed successfully.");
+                return Ok(result.Message);
+            }
+
+            _logger.LogError($"Failed to manage task {taskManagementDto.TaskId}.");
+            return BadRequest(result.Message);
+        }
+
+        // GET: api/Admin/ViewLogs
+        [HttpGet("ViewLogs")]
+        public async Task<IActionResult> ViewLogs()
+        {
+            var logs = await _logService.GetLogsAsync();
+            return Ok(logs);
         }
     }
 }
