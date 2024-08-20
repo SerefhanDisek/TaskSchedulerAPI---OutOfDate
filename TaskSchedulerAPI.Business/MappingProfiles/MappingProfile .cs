@@ -9,11 +9,11 @@ namespace TaskSchedulerAPI.Business.MappingProfiles
     {
         public MappingProfile()
         {
-            // User Entity <-> User DTOs
+            
             CreateMap<User, UserCreateDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
 
-            // Task Entity <-> Task DTOs
+            
             CreateMap<Task, TaskCreateDto>().ReverseMap();
             CreateMap<Task, TaskDto>().ReverseMap();
         }

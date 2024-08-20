@@ -38,17 +38,6 @@ public class UserController : ControllerBase
         return Unauthorized();
     }
 
-    /*[HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UserUpdateDto userUpdateDto)
-    {
-        var result = await _userService.UpdateUserAsync(id, userUpdateDto);
-        if (result.IsSuccess)
-        {
-            return Ok(result);
-        }
-        return BadRequest(result);
-    }*/
-
 }
 
 

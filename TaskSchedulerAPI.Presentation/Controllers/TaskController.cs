@@ -17,7 +17,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             _logger = logger;
         }
 
-        // POST: api/Task/CreateTask
+        
         [HttpPost("CreateTask")]
         public async Task<IActionResult> CreateTask([FromBody] TaskCreateDto taskCreateDto)
         {
@@ -37,7 +37,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest(result.Message);
         }
 
-        // GET: api/Task/GetAllTasks
+        
         [HttpGet("GetAllTasks")]
         public async Task<IActionResult> GetAllTasks()
         {
@@ -45,7 +45,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Ok(tasks);
         }
 
-        // GET: api/Task/GetTaskById/{id}
+        
         [HttpGet("GetTaskById/{id}")]
         public async Task<IActionResult> GetTaskById(int id)
         {
@@ -59,7 +59,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Ok(task);
         }
 
-        // PUT: api/Task/UpdateTask/{id}
+        
         [HttpPut("UpdateTask/{id}")]
         public async Task<IActionResult> UpdateTask(int id, [FromBody] TaskUpdateDto taskUpdateDto)
         {
@@ -79,7 +79,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest(result.Message);
         }
 
-        // DELETE: api/Task/DeleteTask/{id}
+        
         [HttpDelete("DeleteTask/{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {

@@ -20,7 +20,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             _logger = logger;
         }
 
-        // PUT: api/Settings/UpdateUserSettings
+        
         [Authorize]
         [HttpPut("UpdateUserSettings")]
         public async Task<IActionResult> UpdateUserSettings([FromBody] UpdateUserSettingsDto updateUserSettingsDto)
@@ -41,7 +41,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest(result.Message);
         }
 
-        // PUT: api/Settings/UpdateSystemSettings
+        
         [Authorize(Roles = "Admin")]
         [HttpPut("UpdateSystemSettings")]
         public async Task<IActionResult> UpdateSystemSettings([FromBody] UpdateSystemSettingsDto updateSystemSettingsDto)

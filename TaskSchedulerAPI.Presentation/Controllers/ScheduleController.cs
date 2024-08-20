@@ -17,7 +17,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             _logger = logger;
         }
 
-        // POST: api/Schedule/ScheduleTask
+        
         [HttpPost("ScheduleTask")]
         public IActionResult ScheduleTask([FromBody] ScheduleTaskDto scheduleTaskDto)
         {
@@ -37,7 +37,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest("Task scheduling failed.");
         }
 
-        // GET: api/Schedule/GetScheduledTasks
+        
         [HttpGet("GetScheduledTasks")]
         public IActionResult GetScheduledTasks()
         {
@@ -45,7 +45,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Ok(tasks);
         }
 
-        // DELETE: api/Schedule/CancelScheduledTask/{jobId}
+        
         [HttpDelete("CancelScheduledTask/{jobId}")]
         public IActionResult CancelScheduledTask(string jobId)
         {

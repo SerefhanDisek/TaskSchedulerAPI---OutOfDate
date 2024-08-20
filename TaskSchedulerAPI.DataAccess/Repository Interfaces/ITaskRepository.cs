@@ -1,5 +1,4 @@
-﻿using TaskSchedulerAPI.Core.Entities;
-using Task = TaskSchedulerAPI.Core.Entities.Task;
+﻿using Task = TaskSchedulerAPI.Core.Entities.Task;
 
 namespace TaskSchedulerAPI.DataAccess.Interfaces
 {

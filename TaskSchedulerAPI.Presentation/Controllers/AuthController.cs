@@ -18,7 +18,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             _logger = logger;
         }
 
-        // POST: api/Auth/Login
+        
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
@@ -38,7 +38,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Unauthorized(result.Message);
         }
 
-        // POST: api/Auth/Logout
+        
         [Authorize]
         [HttpPost("Logout")]
         public IActionResult Logout()
@@ -54,7 +54,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest(result.Message);
         }
 
-        // POST: api/Auth/RefreshToken
+        
         [HttpPost("RefreshToken")]
         public async Task<IActionResult> RefreshToken([FromBody] TokenRefreshDto tokenRefreshDto)
         {
@@ -74,7 +74,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Unauthorized(result.Message);
         }
 
-        // POST: api/Auth/ResetPassword
+        
         [HttpPost("ResetPassword")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {

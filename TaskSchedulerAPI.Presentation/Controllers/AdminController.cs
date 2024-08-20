@@ -23,7 +23,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             _logger = logger;
         }
 
-        // GET: api/Admin/ManageUsers
+        
         [HttpGet("ManageUsers")]
         public async Task<IActionResult> ManageUsers()
         {
@@ -31,7 +31,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Ok(users);
         }
 
-        // POST: api/Admin/ManageUsers
+        
         [HttpPost("ManageUsers")]
         public async Task<IActionResult> ManageUsers([FromBody] UserManagementDto userManagementDto)
         {
@@ -46,7 +46,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest(result.Message);
         }
 
-        // GET: api/Admin/ManageTasks
+        
         [HttpGet("ManageTasks")]
         public async Task<IActionResult> ManageTasks()
         {
@@ -54,7 +54,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Ok(tasks);
         }
 
-        // POST: api/Admin/ManageTasks
+       
         [HttpPost("ManageTasks")]
         public async Task<IActionResult> ManageTasks([FromBody] TaskManagementDto taskManagementDto)
         {
@@ -69,7 +69,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest(result.Message);
         }
 
-        // GET: api/Admin/ViewLogs
+        
         [HttpGet("ViewLogs")]
         public async Task<IActionResult> ViewLogs()
         {

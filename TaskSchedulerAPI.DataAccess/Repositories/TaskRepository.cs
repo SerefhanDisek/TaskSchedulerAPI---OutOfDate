@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskSchedulerAPI.Core.Entities;
 using TaskSchedulerAPI.DataAccess.Interfaces;
 using Task = TaskSchedulerAPI.Core.Entities.Task;
 

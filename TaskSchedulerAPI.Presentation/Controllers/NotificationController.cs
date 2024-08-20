@@ -17,7 +17,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             _logger = logger;
         }
 
-        // POST: api/Notification/SendNotification
+        
         [HttpPost("SendNotification")]
         public async Task<IActionResult> SendNotification([FromBody] SendNotificationDto sendNotificationDto)
         {
@@ -37,7 +37,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest(result.Message);
         }
 
-        // GET: api/Notification/GetUserNotifications/{userId}
+        
         [HttpGet("GetUserNotifications/{userId}")]
         public async Task<IActionResult> GetUserNotifications(string userId)
         {
@@ -45,7 +45,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Ok(notifications);
         }
 
-        // PUT: api/Notification/MarkAsRead/{notificationId}
+       
         [HttpPut("MarkAsRead/{notificationId}")]
         public async Task<IActionResult> MarkAsRead(string notificationId)
         {
