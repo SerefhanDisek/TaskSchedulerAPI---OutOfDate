@@ -51,6 +51,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHangfireDashboard();
 BackgroundJob.Enqueue(() => Console.WriteLine("Hanfire ile görev çalýþtýrýldý!"));
+BackgroundJob.Schedule(() => Console.WriteLine("30 saniye sonra çalýþacak görev!"), TimeSpan.FromSeconds(30));
+RecurringJob.AddOrUpdate("my-recurring-job", () => Console.WriteLine("Her dakika çalýþacak görev!"), Cron.Minutely);
+var jobId = BackgroundJob.Enqueue(() => Console.WriteLine("Ýlk görev!"));
+BackgroundJob.ContinueWith(jobId, () => Console.WriteLine("Devam eden görev!"));
+
 
 app.UseRouting();
 app.UseEndpoints(endpoints =>

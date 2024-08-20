@@ -38,6 +38,9 @@ public class UserController : ControllerBase
         return Unauthorized();
     }
 
+    /*[HttpGet]
+    public async Task<IActionResult> GetUser(int id)
+
     /*[HttpGet("{id}")]
     public async Task<IActionResult> GetUser(int id)
     {
