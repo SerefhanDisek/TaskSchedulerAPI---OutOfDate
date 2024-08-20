@@ -17,7 +17,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             _logger = logger;
         }
 
-        // POST: api/Report/GenerateReport
+    
         [HttpPost("GenerateReport")]
         public async Task<IActionResult> GenerateReport([FromBody] GenerateReportDto generateReportDto)
         {
@@ -37,7 +37,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return BadRequest(result.Message);
         }
 
-        // GET: api/Report/GetAllReports
+        
         [HttpGet("GetAllReports")]
         public async Task<IActionResult> GetAllReports()
         {
@@ -45,7 +45,7 @@ namespace TaskSchedulerAPI.Presentation.Controllers
             return Ok(reports);
         }
 
-        // GET: api/Report/GetReportById/{reportId}
+        
         [HttpGet("GetReportById/{reportId}")]
         public async Task<IActionResult> GetReportById(string reportId)
         {
