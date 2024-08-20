@@ -13,9 +13,9 @@ namespace TaskSchedulerAPI.Business.Services
         private readonly ITaskRepository _taskRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        private readonly ILogger<TaskService> _logger;
 
-        public TaskService(ITaskRepository taskRepository, IUserRepository userRepository, IMapper mapper, ILogger logger)
+        public TaskService(ITaskRepository taskRepository, IUserRepository userRepository, IMapper mapper, ILogger<TaskService> logger)
         {
             _taskRepository = taskRepository;
             _userRepository = userRepository;
