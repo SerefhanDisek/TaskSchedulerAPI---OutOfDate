@@ -53,3 +53,30 @@ app.MapControllers();
 app.Run();
 
 
+/*
+ public void ConfigureServices(IServiceCollection services)
+{
+    // Hangfire için SQL Server kullanarak yapýlandýrma
+    services.AddHangfire(config => config
+        .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+
+    // Hangfire Server'ý ekleyin
+    services.AddHangfireServer();
+
+    // Diðer servisler
+    services.AddControllers();
+}
+
+public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs)
+{
+    app.UseHangfireDashboard(); // Dashboard'u etkinleþtirir
+    backgroundJobs.Enqueue(() => Console.WriteLine("Hangfire ile görev çalýþtýrýldý!"));
+
+    // Diðer middleware'ler
+    app.UseRouting();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+}
+*/
