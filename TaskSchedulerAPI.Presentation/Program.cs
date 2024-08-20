@@ -1,5 +1,6 @@
 using FluentAssertions.Common;
 using FluentValidation.AspNetCore;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Serilog;
@@ -30,6 +31,10 @@ builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+builder.Services.AddHangfire(config => config
+        .UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddHangfireServer();
+
 builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserCreateDtoValidator>());
 
@@ -44,6 +49,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHangfireDashboard();
+BackgroundJob.Enqueue(() => Console.WriteLine("Hanfire ile görev çalýþtýrýldý!"));
+
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -52,31 +66,3 @@ app.MapControllers();
 
 app.Run();
 
-
-/*
- public void ConfigureServices(IServiceCollection services)
-{
-    // Hangfire için SQL Server kullanarak yapýlandýrma
-    services.AddHangfire(config => config
-        .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
-
-    // Hangfire Server'ý ekleyin
-    services.AddHangfireServer();
-
-    // Diðer servisler
-    services.AddControllers();
-}
-
-public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs)
-{
-    app.UseHangfireDashboard(); // Dashboard'u etkinleþtirir
-    backgroundJobs.Enqueue(() => Console.WriteLine("Hangfire ile görev çalýþtýrýldý!"));
-
-    // Diðer middleware'ler
-    app.UseRouting();
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-    });
-}
-*/
