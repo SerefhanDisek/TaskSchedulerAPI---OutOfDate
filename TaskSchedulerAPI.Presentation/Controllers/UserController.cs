@@ -16,6 +16,9 @@ public class UserController : ControllerBase
         _mapper = mapper;
     }
 
+    /*[HttpGet]
+    public async Task<IActionResult> GetAllUser*/
+
     [HttpPost("register")]
     public async Task<IActionResult> Register(UserCreateDto userDto)
     {

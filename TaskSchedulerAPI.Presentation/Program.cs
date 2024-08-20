@@ -1,24 +1,42 @@
 using FluentAssertions.Common;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
+using TaskSchedulerAPI.Business.Interfaces;
+using TaskSchedulerAPI.Business.MappingProfiles;
+using TaskSchedulerAPI.Business.Services;
+using TaskSchedulerAPI.Core.DTOs;
 using TaskSchedulerAPI.DataAccess;
+using TaskSchedulerAPI.DataAccess.Interfaces;
+using TaskSchedulerAPI.DataAccess.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<TaskSchedulerDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+builder.Services.AddControllers()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserCreateDtoValidator>());
+
+/*builder.Services.AddLogging(LoggingBuilderExtensions => LoggingBuilderExtensions.AddSerilog(dispose: true));*/
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -35,24 +53,8 @@ app.Run();
 
 /*public void ConfigureServices(IServiceCollection services)
 {
-    // Veritabaný baðlantýsý
-    services.AddDbContext<TaskSchedulerDbContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-    // Core ve Business katmanýndaki servislerin DI'ye eklenmesi
-    services.AddScoped<IUserService, UserService>();
-    services.AddScoped<ITaskService, TaskService>();
 
-    // DataAccess katmanýndaki repository'lerin DI'ye eklenmesi
-    services.AddScoped<IUserRepository, UserRepository>();
-    services.AddScoped<ITaskRepository, TaskRepository>();
-
-    // Automapper profilinin eklenmesi
-    services.AddAutoMapper(typeof(MappingProfile));
-
-    // FluentValidation'ýn eklenmesi
-    services.AddControllers()
-        .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserCreateDtoValidator>());
 
     // Serilog gibi diðer kütüphanelerin eklenmesi
     services.AddLogging(loggingBuilder =>
