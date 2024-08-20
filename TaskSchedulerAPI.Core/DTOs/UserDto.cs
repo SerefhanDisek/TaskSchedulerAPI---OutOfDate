@@ -1,5 +1,4 @@
-﻿
-namespace TaskSchedulerAPI.Core.DTOs
+﻿namespace TaskSchedulerAPI.Core.DTOs
 {
     public class UserDto
     {

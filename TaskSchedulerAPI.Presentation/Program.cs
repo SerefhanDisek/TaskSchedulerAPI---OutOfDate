@@ -2,6 +2,7 @@ using FluentAssertions.Common;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 using System.Diagnostics;
 using TaskSchedulerAPI.Business.Interfaces;
 using TaskSchedulerAPI.Business.MappingProfiles;
@@ -32,7 +33,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserCreateDtoValidator>());
 
-/*builder.Services.AddLogging(LoggingBuilderExtensions => LoggingBuilderExtensions.AddSerilog(dispose: true));*/
+builder.Services.AddLogging(LoggingBuilderExtensions => LoggingBuilderExtensions.AddSerilog(dispose: true));
 
 var app = builder.Build();
 
@@ -51,12 +52,4 @@ app.MapControllers();
 
 app.Run();
 
-/*public void ConfigureServices(IServiceCollection services)
-{
 
-
-
-    // Serilog gibi diðer kütüphanelerin eklenmesi
-    services.AddLogging(loggingBuilder =>
-        loggingBuilder.AddSerilog(dispose: true));
-}*/
