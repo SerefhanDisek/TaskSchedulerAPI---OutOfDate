@@ -31,7 +31,7 @@ namespace TaskSchedulerAPI.Business.Services
             {
                 return null;
             }
-            
+
             return _mapper.Map<UserDto>(user);
         }
 
@@ -53,40 +53,35 @@ namespace TaskSchedulerAPI.Business.Services
 
         private bool VerifyPassword(string passwordHash, string password)
         {
-           
-            return true; 
+
+            return true;
         }
 
-        public Task<string?> LoginUserAsync(string email)
+        public async Task<string?> LoginUserAsync(string email)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetUserByEmailAsync(email);
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (!VerifyPassword(user.PasswordHash, user.PasswordSalt))
+            {
+                // Şifre yanlışsa null döndür
+                return null;
+            }
+
+            var token = GenerateJwtToken(user);
+
+            return token;
         }
-    }
-}
 
-
-/*public class UserService : IUserService
-{
-    private readonly IUserRepository _userRepository;
-    private readonly IMapper _mapper;
-
-    public UserService(IUserRepository userRepository, IMapper mapper)
-    {
-        _userRepository = userRepository;
-        _mapper = mapper;
-    }
-
-    public async Task<UserDto> LoginUserAsync(string username)
-    {
-        var user = await _userRepository.GetUserByUsernameAsync(username);
-        if (user == null)
+        private string GenerateJwtToken(User user) 
         {
             return null;
         }
 
-        return _mapper.Map<UserDto>(user);
+    
     }
-
-    // Diğer metodlar
 }
-*/
+

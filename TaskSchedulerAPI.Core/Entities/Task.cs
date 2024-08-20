@@ -2,12 +2,12 @@
 {
     public class Task
     {
-        public int Id { get; set; }  // Task ID, primary key
-        public string Title { get; set; }  // Task başlığı
-        public string Description { get; set; }  // Task açıklaması
-        public DateTime DueDate { get; set; }  // Task'ın son teslim tarihi
-        public bool IsCompleted { get; set; }  // Task'ın tamamlanma durumu
-        public ICollection<UserTask> UserTasks { get; set; }  // Task'ın hangi kullanıcıya ait olduğu bilgisi
+        public int Id { get; set; }  
+        public string Title { get; set; }  
+        public string Description { get; set; }  
+        public DateTime DueDate { get; set; }  
+        public bool IsCompleted { get; set; }  
+        public ICollection<UserTask> UserTasks { get; set; }  
     }
 
 }

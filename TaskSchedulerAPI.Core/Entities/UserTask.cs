@@ -2,13 +2,13 @@
 {
     public class UserTask
     {
-        public int UserId { get; set; }  // User ID, foreign key
-        public User User { get; set; }  // User entity'si ile ilişki
+        public int UserId { get; set; }  
+        public User User { get; set; }  
 
-        public int TaskId { get; set; }  // Task ID, foreign key
-        public Task Task { get; set; }  // Task entity'si ile ilişki
+        public int TaskId { get; set; }  
+        public Task Task { get; set; }  
 
-        public DateTime AssignedDate { get; set; }  // Task'ın kullanıcıya atandığı tarih
+        public DateTime AssignedDate { get; set; }  
     }
 
 }
