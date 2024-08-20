@@ -38,40 +38,71 @@ public class UserController : ControllerBase
         return Unauthorized();
     }
 
-    /*[HttpGet]
-    public async Task<IActionResult> GetUser(int id)
-
-    /*[HttpGet("{id}")]
-    public async Task<IActionResult> GetUser(int id)
+    /*[HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, UserUpdateDto userUpdateDto)
     {
-        var user = await _userService.GetUserByIdAsync(id);
-        if (user != null)
+        var result = await _userService.UpdateUserAsync(id, userUpdateDto);
+        if (result.IsSuccess)
         {
-            return Ok(user);
+            return Ok(result);
         }
-        return NotFound();
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userDto)
-    {
-        var result = await _userService.UpdateUserAsync(id, userDto);
-        if (result)
-        {
-            return NoContent();
-        }
-        return BadRequest();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteUser(int id)
-    {
-        var result = await _userService.DeleteUserAsync(id);
-        if (result)
-        {
-            return NoContent();
-        }
-        return NotFound();
+        return BadRequest(result);
     }*/
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*[HttpGet]
+public async Task<IActionResult> GetUser(int id)
+
+/*[HttpGet("{id}")]
+public async Task<IActionResult> GetUser(int id)
+{
+    var user = await _userService.GetUserByIdAsync(id);
+    if (user != null)
+    {
+        return Ok(user);
+    }
+    return NotFound();
+}
+
+[HttpPut("{id}")]
+public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userDto)
+{
+    var result = await _userService.UpdateUserAsync(id, userDto);
+    if (result)
+    {
+        return NoContent();
+    }
+    return BadRequest();
+}
+
+[HttpDelete("{id}")]
+public async Task<IActionResult> DeleteUser(int id)
+{
+    var result = await _userService.DeleteUserAsync(id);
+    if (result)
+    {
+        return NoContent();
+    }
+    return NotFound();
+}*/
