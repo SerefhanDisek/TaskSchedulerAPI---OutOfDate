@@ -18,7 +18,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Version = "v1",
+        Title = "TASK SCHEDULER API",
+        Description = "Serefhan Disek Proje"
+    });
+});
 
 builder.Services.AddDbContext<TaskSchedulerDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -42,6 +50,18 @@ builder.Services.AddLogging(LoggingBuilderExtensions => LoggingBuilderExtensions
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.RoutePrefix = string.Empty; 
+});
 
 if (app.Environment.IsDevelopment())
 {
@@ -55,7 +75,6 @@ BackgroundJob.Schedule(() => Console.WriteLine("30 saniye sonra çalýþacak görev!
 RecurringJob.AddOrUpdate("my-recurring-job", () => Console.WriteLine("Her dakika çalýþacak görev!"), Cron.Minutely);
 var jobId = BackgroundJob.Enqueue(() => Console.WriteLine("Ýlk görev!"));
 BackgroundJob.ContinueWith(jobId, () => Console.WriteLine("Devam eden görev!"));
-
 
 app.UseRouting();
 app.UseEndpoints(endpoints =>

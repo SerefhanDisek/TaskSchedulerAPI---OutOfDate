@@ -12,19 +12,19 @@ namespace TaskSchedulerAPI.DataAccess
         {
         }
 
-        public DbSet<User> Users { get; set; }  // User tablosu
-        public DbSet<Task> Tasks { get; set; }  // Task tablosu
-        public DbSet<UserTask> UserTasks { get; set; }  // UserTask tablosu
+        public DbSet<User> Users { get; set; }  
+        public DbSet<Task> Tasks { get; set; }  
+        public DbSet<UserTask> UserTasks { get; set; }  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // UserTask için composite key tanımlama (UserId, TaskId)
+            
             modelBuilder.Entity<UserTask>()
                 .HasKey(ut => new { ut.UserId, ut.TaskId });
 
-            // User ve Task arasında çoktan-çoğa (many-to-many) ilişkiyi tanımlama
+            
             modelBuilder.Entity<UserTask>()
                 .HasOne(ut => ut.User)
                 .WithMany(u => u.UserTasks)
