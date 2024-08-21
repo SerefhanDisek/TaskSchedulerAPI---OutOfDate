@@ -10,6 +10,8 @@ namespace TaskSchedulerAPI.Business.Interfaces
         Task<OperationResult> UpdateTaskAsync(int id, TaskUpdateDto taskUpdateDto);
         Task<OperationResult> DeleteTaskAsync(int id);
         Task<OperationResult> ManageTaskAsync(TaskManagementDto taskManagementDto);
+        Task DistributeTaskAsync();
+        Core.Entities.Task DistributeTasksAsync();
     }
 }
 

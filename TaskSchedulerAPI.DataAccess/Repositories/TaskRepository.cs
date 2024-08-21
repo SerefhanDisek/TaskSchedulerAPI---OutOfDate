@@ -41,5 +41,15 @@ namespace TaskSchedulerAPI.DataAccess.Repositories
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public Task<IEnumerable<Task>> GetUncompletedTasksAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public System.Threading.Tasks.Task UpdateTaskAsync(Task task)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

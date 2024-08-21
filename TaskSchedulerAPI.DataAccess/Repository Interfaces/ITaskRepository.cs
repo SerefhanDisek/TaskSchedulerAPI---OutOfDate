@@ -9,5 +9,7 @@ namespace TaskSchedulerAPI.DataAccess.Interfaces
         Task<bool> AddAsync(Task task);
         Task<IEnumerable<Task>> GetUnassignedTasksAsync();
         Task<bool> SaveChangesAsync();
+        Task<IEnumerable<Task>> GetUncompletedTasksAsync();
+        System.Threading.Tasks.Task UpdateTaskAsync(Task task);
     }
 }

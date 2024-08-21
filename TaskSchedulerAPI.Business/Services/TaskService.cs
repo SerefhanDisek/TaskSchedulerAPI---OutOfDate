@@ -88,6 +88,55 @@ namespace TaskSchedulerAPI.Business.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Dictionary<int, bool>> DistributeTasksAsync()
+        {
+            var tasks = await _taskRepository.GetUnassignedTasksAsync();
+            var users = await _userRepository.GetAllUsersAsync();
+
+            var distributionResults = new Dictionary<int, bool>();
+
+            if (tasks == null || !tasks.Any())
+            {
+                return distributionResults; 
+            }
+
+            var userList = users.ToList(); 
+
+            int userCount = userList.Count();
+            int userIndex = 0;
+
+            foreach (var task in tasks)
+            {
+                var user = userList[userIndex]; 
+                task.Id = user.Id;  //task.userId = user.userId kımı burası, bu ifade veritabanı için bir ilişki içerebilir ileride sıkıntı yaşarsan buraya bak!!!
+
+                try
+                {
+                    await _taskRepository.UpdateTaskAsync(task);
+                    distributionResults.Add(task.Id, true); 
+                }
+                catch (Exception)
+                {
+                    distributionResults.Add(task.Id, false); 
+                }
+
+                userIndex = (userIndex + 1) % userCount;
+            }
+
+            return distributionResults;
+        }
+
+
+        public System.Threading.Tasks.Task DistributeTaskAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task ITaskService.DistributeTasksAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
