@@ -22,7 +22,7 @@ public class UserController : ControllerBase
     
     [Authorize]
     [HttpGet("GetUserById/{userId}")]
-    public async Task<IActionResult> GetUserById(string userId)
+    public async Task<IActionResult> GetUserById(int userId)
     {
         var user = await _userService.GetUserByIdAsync(userId);
         if (user == null)
@@ -34,8 +34,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
-    
-    [Authorize]
+
     [HttpPut("UpdateUser")]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
     {
@@ -44,7 +43,13 @@ public class UserController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _userService.UpdateUserAsync(User.Identity.Name, updateUserDto);
+        
+        if (!int.TryParse(User.Identity.Name, out int userId))
+        {
+            return BadRequest("Invalid user ID.");
+        }
+
+        var result = await _userService.UpdateUserAsync(userId, updateUserDto);
         if (result.IsSuccess)
         {
             _logger.LogInformation("User updated successfully.");
@@ -55,10 +60,11 @@ public class UserController : ControllerBase
         return BadRequest(result.Message);
     }
 
-    
+
+
     [Authorize(Roles = "Admin")]
     [HttpDelete("DeleteUser/{userId}")]
-    public async Task<IActionResult> DeleteUser(string userId)
+    public async Task<IActionResult> DeleteUser(int userId)
     {
         var result = await _userService.DeleteUserAsync(userId);
         if (result.IsSuccess)

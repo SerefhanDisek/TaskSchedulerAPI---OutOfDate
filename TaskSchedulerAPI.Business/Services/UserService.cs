@@ -80,12 +80,27 @@ namespace TaskSchedulerAPI.Business.Services
             return null;
         }
 
-        public Task<object?> UpdateUserAsync(int id, UserUpdateDto userUpdateDto)
+        public Task<UserDto> GetUserByIdAsync(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<OperationResult> ManageUserAsync(UserManagementDto userManagementDto)
+        public Task<OperationResult> UpdateUserAsync(int userId, UpdateUserDto updateUserDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<OperationResult> DeleteUserAsync(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<OperationResult> ChangePasswordAsync(string username, ChangePasswordDto changePasswordDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<OperationResult> IUserService.ManageUserAsync(UserManagementDto managementDto)
         {
             throw new NotImplementedException();
         }
